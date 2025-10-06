@@ -195,7 +195,7 @@ function AudioUI() {
     setMuted(m => !m)
   }
 
-  const iconSrc = (muted || vol === 0) ? '/images/dance.png' : '/images/dance.gif'
+  const iconSrc = (muted || vol===0) ? BASE+'images/dance.png' : BASE+'images/dance.gif'
 
   return (
     <div className="audio-ui" onClick={(e)=>e.stopPropagation()}>
