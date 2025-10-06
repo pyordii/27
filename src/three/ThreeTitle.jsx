@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import { Text } from 'troika-three-text'
+const BASE = import.meta.env.BASE_URL
 
 const TITLE = `Happy Birthday\n27 level (╯°□°)╯(┻━┻)`
 const OUTLINE_HEX = 0x000000
@@ -40,7 +41,7 @@ export default function ThreeTitle(){
     // контур — отдельный слой, цвет фикс
     const outlineText = new Text()
     outlineText.text = TITLE
-    outlineText.font = '/fonts/MountainsofChristmas-Regular.ttf'
+    outlineText.font = BASE + 'fonts/MountainsofChristmas-Regular.ttf'
     outlineText.fontSize = 6
     outlineText.anchorX = 'center'
     outlineText.anchorY = 'middle'
@@ -59,7 +60,7 @@ export default function ThreeTitle(){
     // заливка — отдельный слой, меняем цвет по радуге
     const fillText = new Text()
     fillText.text = TITLE
-    fillText.font = '/fonts/MountainsofChristmas-Bold.ttf'
+    fillText.font = BASE + 'fonts/MountainsofChristmas-Bold.ttf'
     fillText.fontSize = 6
     fillText.anchorX = 'center'
     fillText.anchorY = 'middle'

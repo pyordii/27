@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect, useRef, useState } from 'react'
 import ThreeTitle from './three/ThreeTitle.jsx'
 import Fireworks from './effects/Fireworks.jsx'
-
+const BASE = import.meta.env.BASE_URL
 
 const IMG_COUNT = 27
 
@@ -47,7 +47,7 @@ function ImageTile({ src, rect }) {
   }
 
   // пути png/gif
-const gifSrc = useMemo(() => src.replace(/(\d+)\.png$/i, '$1.gif'), [src])
+const gifSrc = useMemo(() => src.replace(/\.png$/i, '.gif'), [src])
 
   const onEnter = () => setCurrentSrc(gifSrc)
   const onLeave = () => setCurrentSrc(src)
@@ -95,7 +95,7 @@ const gifSrc = useMemo(() => src.replace(/(\d+)\.png$/i, '$1.gif'), [src])
 
 function SpotlightImage({ pngSrc, className }) {
   const [src, setSrc] = useState(pngSrc)
-  const gifSrc = useMemo(() => pngSrc.replace(/(\d+)\.png$/i, '$1.gif'), [pngSrc])
+  const gifSrc = useMemo(() => pngSrc.replace(/\.png$/i, '.gif'), [pngSrc])
 
   useEffect(() => {
     // показать PNG сразу
@@ -120,7 +120,7 @@ function SpotlightImage({ pngSrc, className }) {
 
 function AudioUI() {
   const TRACK_COUNT = 5; // 0.ogg ... 4.ogg
-  const SOURCES = useMemo(() => Array.from({length: TRACK_COUNT}, (_, i) => `/audio/${i}.ogg`), [])
+  const SOURCES = useMemo(() => Array.from({length:5},(_,i)=> BASE + `audio/${i}.ogg`), [])
   const audioRef = useRef(null)
   const trackRef = useRef(0)
 
@@ -129,7 +129,7 @@ function AudioUI() {
   const [playing, setPlaying] = useState(false)
 
   // иконки (предзагрузка)
-  useEffect(() => { new Image().src = '/images/dance.png'; new Image().src = '/images/dance.gif' }, [])
+  useEffect(() => { new Image().src = BASE + 'images/dance.png'; new Image().src = BASE + 'images/dance.gif' }, [])
 
   // инициализация аудио
   useEffect(() => {
@@ -219,7 +219,10 @@ function AudioUI() {
 
 
 export default function App(){
-  const order = useMemo(()=>shuffle(Array.from({length:IMG_COUNT},(_,i)=>`/images/${i+1}.png`)),[])
+  const order = useMemo(
+  () => shuffle(Array.from({length: IMG_COUNT}, (_,i) => BASE + `images/${i+1}.png`)),
+  []
+)
   const rects = useMemo(()=>makeTiling(IMG_COUNT),[])
 
   // Spotlight viewer
@@ -251,7 +254,7 @@ export default function App(){
 
   return (
     <div className={`page ${spotlight?'is-spotlight':''}`}>
-      <img src="/images/bg.png" alt="" className="bg-canvas" aria-hidden />
+      <img src={BASE + 'images/bg.png'} alt="" className="bg-canvas" aria-hidden />
       <AudioUI />
       <Fireworks />   {/* фейерверк по клику */}
       {/* 3D title overlay */}
