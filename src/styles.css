@@ -1,0 +1,75 @@
+html, body, #root { height: 100%; }
+body { margin: 0; background: #000; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto; }
+
+.page { height: 100vh; width: 100vw; position: relative; overflow: hidden; }
+
+/* background canvas image */
+.bg-canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  z-index: 0; pointer-events: none;
+}
+
+/* Three.js holder for 3D title */
+.three-holder { position: absolute; inset: 0; z-index: 2500; pointer-events: none; }
+
+/* collage */
+.stage { position: absolute; inset: 0; }
+
+.tile-abs {
+  position: absolute; margin: 0; overflow: visible;
+  transition: transform 160ms ease, opacity 180ms ease;
+  z-index: 1;
+}
+.tile-abs:hover { z-index: 3000; transform: translateZ(0) scale(1.02); }
+.tile-img {
+  display: block; image-rendering: auto;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.35);
+}
+
+/* spotlight viewer */
+.is-spotlight .tile-abs { opacity: 0.1; }
+.is-spotlight .three-holder { opacity: 0.15; }
+
+.lightbox {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  z-index: 4000;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.65), rgba(0,0,0,0.85));
+  cursor: zoom-out;
+}
+.lightbox-img {
+  max-width: 96vw; max-height: 96vh;
+  width: auto; height: auto;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+.lightbox-hint {
+  position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+  font: 12px/1.4 system-ui, -apple-system, Segoe UI, Roboto;
+  color: #ddd; opacity: 0.8;
+}
+
+.audio-ui{
+  position: fixed;
+  top: 12px; right: 12px;
+  z-index: 5000;
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 8px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+}
+.audio-btn{
+  cursor: pointer;
+  border: none; border-radius: 8px;
+  background: transparent;
+  padding: 0;
+}
+.audio-btn.img img{
+  width: 32px; height: 32px;       /* при желании поменяй размер */
+  display: block; border-radius: 6px;
+}
+.audio-slider{ width: 140px; accent-color: #fff; }
